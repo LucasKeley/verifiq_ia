@@ -30,7 +30,7 @@ try:
   llm = genai.GenerativeModel(
       model_name=MODELO_ESCOLHIDO,
       system_instruction=prompt_sistema,
-      generation_config=configuração_modelogit
+      generation_config=configuração_modelo
   )
 
   resposta = llm.generate_content(prompt_usuario)
