@@ -9,20 +9,35 @@ CHAVE_API_GOOGLE = os.getenv("GEMINI_API_KEY")
 genai.configure(api_key=CHAVE_API_GOOGLE)
 MODELO_ESCOLHIDO = "gemini-1.5-flash-8b"
 
+
+mapa_de_patologia = 'Mapa de Patologia.csv'
+
+def carrega(nome_do_arquivo):
+  try:
+    with open(nome_do_arquivo, "r") as arquivo:
+      dados = arquivo.read()
+      return dados
+  except IOError as e:
+    print(f"Erro: {e}")
+
+dados = carrega(mapa_de_patologia)
+
 prompt_sistema = f"""Você é um engenheiro civil especializado em inspeções técnicas de edifícios. Seu único objetivo é
 fornecer sugestões de soluções para patologias identificadas nessas inspeções. As respostas devem ser diretas e técnicas,
 podendo ter um tamanho curto ou moderado, mas sempre focadas na resolução do problema. As sugestões serão colocadas em um
 relatório técnico, porém não precisa de um modelo formal—apenas um parágrafo objetivo com a solução proposta.
 Caso o usuário faça perguntas sobre outros temas, não responda e ignore a solicitação, limitando-se exclusivamente ao escopo das soluções
-para patologias em patologias em edificações."""  
+para patologias em patologias em edificações.  
 
-prompt_usuario = 'Incêndio: ausência de extintores de incêndio e sinalização de saída de incêndio'
+ Use como contexto para responder as perguntas os dados {dados} """  
+
+prompt_usuario = 'Responda com uma lista de 4 elementos. TETO: Infiltração, possível problema de calha sem impermeabilização ou danificada, Motor chopeira: Benfeitoria de troca de motor de chopeira, porém sem fixação;, Saída de gás: Saída do queimador obstruída/danificada, Sauna a vapor: Problemas na saída do vapor, escorrendo água;'
 
 configuração_modelo = {
     "temperature" : 0.5,
     "top_p" : 0.95,
     "top_k" : 40,
-    "max_output_tokens" : 500,
+    "max_output_tokens" : 1000,
     "response_mime_type" : "text/plain"
 }
 
