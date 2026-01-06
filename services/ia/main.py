@@ -7,10 +7,10 @@ load_dotenv()
 
 CHAVE_API_GOOGLE = os.getenv("GEMINI_API_KEY")
 genai.configure(api_key=CHAVE_API_GOOGLE)
-MODELO_ESCOLHIDO = "gemini-1.5-flash-8b"
+MODELO_ESCOLHIDO = "gemini-2.5-flash-lite"
 
 
-mapa_de_patologia = 'Mapa de Patologia.csv'
+mapa_de_patologia = '/home/lucas/Projetos/verifiq_ia/data/Mapa de Patologia.csv'
 
 def carrega(nome_do_arquivo):
   try:
